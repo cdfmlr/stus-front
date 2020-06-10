@@ -38,11 +38,10 @@
               <student-my-info/>
             </div>
             <div v-else-if="navSelected[0]==='examResult'">
-              <p>examResult</p>
               <student-exam-result/>
             </div>
             <div v-else-if="navSelected[0]==='takeCourse'">
-              <p>takeCourse</p>
+              <student-take-course/>
             </div>
           </div>
         </a-layout-content>
@@ -60,9 +59,10 @@
 <script>
     import StudentMyInfo from "./student/StudentMyInfo";
     import StudentExamResult from "./student/StudentExamResult";
+    import StudentTakeCourse from "./student/StudentTakeCourse";
     export default {
         name: "HomeStudent",
-        components: {StudentExamResult, StudentMyInfo},
+        components: {StudentTakeCourse, StudentExamResult, StudentMyInfo},
         data: function () {
             return {
                 navSelected: ["myInfo"],

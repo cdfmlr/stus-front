@@ -5,8 +5,7 @@
       <a-layout-sider breakpoint="lg" collapsed-width="0" @collapse="onCollapse" @breakpoint="onBreakpoint"
                       style="background: #fff">
         <div class="logo">
-          <span>logo</span>
-          <hr/>
+          <img src="../assets/stus.png" width="200px" height="200px">
         </div>
         <a-menu theme="light" mode="inline" v-model="navSelected" @select="onNavMenuSelect">
           <a-menu-item key="myInfo">
@@ -14,14 +13,17 @@
             <span class="nav-text">我的信息</span>
           </a-menu-item>
           <a-menu-item key="examResult">
-            <a-icon type="home"/>
+            <a-icon type="reconciliation" />
             <span class="nav-text">成绩查询</span>
           </a-menu-item>
           <a-menu-item key="takeCourse">
-            <a-icon type="home"/>
+            <a-icon type="funnel-plot" />
             <span class="nav-text">学生选课</span>
           </a-menu-item>
         </a-menu>
+        <a-button type="danger" style="margin: 16px" icon="logout" @click="exitLogin">
+          退出登录
+        </a-button>
       </a-layout-sider>
       <a-layout>
 
@@ -53,6 +55,11 @@
         </a-layout-footer>
       </a-layout>
     </a-layout>
+
+    <!-- exit -->
+    <a-modal v-model="exitVisible" title="退出登录" @ok="handleExit">
+      <p>确定要退出登录？</p>
+    </a-modal>
   </div>
 </template>
 
@@ -60,12 +67,14 @@
     import StudentMyInfo from "./student/StudentMyInfo";
     import StudentExamResult from "./student/StudentExamResult";
     import StudentTakeCourse from "./student/StudentTakeCourse";
+    import {setCookie} from "../util/cookieUtil";
     export default {
         name: "HomeStudent",
         components: {StudentTakeCourse, StudentExamResult, StudentMyInfo},
         data: function () {
             return {
                 navSelected: ["myInfo"],
+                exitVisible: false
             }
         },
         methods: {
@@ -77,6 +86,13 @@
             },
             onNavMenuSelect(i) {
                 console.log(i);
+            },
+            exitLogin() {
+                this.exitVisible = true;
+            },
+            handleExit() {
+                setCookie("token", "")
+                this.exitVisible = false;
             }
         }
     }

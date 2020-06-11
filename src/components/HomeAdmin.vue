@@ -5,8 +5,7 @@
       <a-layout-sider breakpoint="lg" collapsed-width="0" @collapse="onCollapse" @breakpoint="onBreakpoint"
                       style="background: #fff">
         <div class="logo">
-          <span>logo</span>
-          <hr/>
+          <img src="../assets/stus.png" width="200px" height="200px">
         </div>
         <a-menu theme="light" mode="inline" v-model="navSelected" @select="onNavMenuSelect">
           <a-menu-item key="myInfo">
@@ -14,26 +13,31 @@
             <span class="nav-text">我的信息</span>
           </a-menu-item>
           <a-menu-item key="studentManage">
-            <a-icon type="home"/>
+            <a-icon type="solution" />
             <span class="nav-text">学生管理</span>
           </a-menu-item>
           <a-menu-item key="teacherManage">
-            <a-icon type="home"/>
+            <a-icon type="contacts" />
             <span class="nav-text">教师管理</span>
           </a-menu-item>
           <a-menu-item key="courseManage">
-            <a-icon type="home"/>
+            <a-icon type="book" />
             <span class="nav-text">课程管理</span>
           </a-menu-item>
           <a-menu-item key="courseTeacherManage">
-            <a-icon type="home"/>
+            <a-icon type="deployment-unit" />
             <span class="nav-text">任课教师管理</span>
           </a-menu-item>
           <a-menu-item key="studentCourseManage">
-            <a-icon type="home"/>
+            <a-icon type="reconciliation" />
             <span class="nav-text">学生选课管理</span>
           </a-menu-item>
         </a-menu>
+
+        <a-button type="danger" style="margin: 16px" icon="logout" @click="exitLogin">
+          退出登录
+        </a-button>
+
       </a-layout-sider>
       <a-layout>
 
@@ -74,6 +78,11 @@
         </a-layout-footer>
       </a-layout>
     </a-layout>
+
+    <!-- exit -->
+    <a-modal v-model="exitVisible" title="退出登录" @ok="handleExit">
+      <p>确定要退出登录？</p>
+    </a-modal>
   </div>
 </template>
 
@@ -84,6 +93,7 @@
     import AdminCourseManage from "./admin/AdminCourseManage";
     import AdminCourseTeacherManage from "./admin/AdminCourseTeacherManage";
     import AdminStudentCourseManage from "./admin/AdminStudentCourseManage";
+    import {setCookie} from "../util/cookieUtil";
 
     export default {
         name: "HomeAdmin",
@@ -94,6 +104,7 @@
         data: function () {
             return {
                 navSelected: ["myInfo"],
+                exitVisible: false
             }
         },
         methods: {
@@ -105,6 +116,13 @@
             },
             onNavMenuSelect(i) {
                 console.log(i);
+            },
+            exitLogin() {
+                this.exitVisible = true;
+            },
+            handleExit() {
+                setCookie("token", "")
+                this.exitVisible = false;
             }
         }
     }

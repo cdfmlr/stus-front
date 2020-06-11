@@ -1,10 +1,16 @@
 <template>
   <div>
     <div v-if="showAllCourses">
-      <a-button icon="reload"
-                @click="fetchCoursesData">
-        刷新
-      </a-button>
+      <a-page-header
+              title="我的课程"
+      >
+        <template slot="extra">
+          <a-button icon="reload"
+                    @click="fetchCoursesData">
+            刷新
+          </a-button>
+        </template>
+      </a-page-header>
       <a-table :data-source="data" :columns="columns" :scroll="{ x: 800 }" style="margin-top: 16px">
         <div
                 slot="filterDropdown"

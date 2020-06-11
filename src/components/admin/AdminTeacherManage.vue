@@ -1,5 +1,8 @@
 <template>
   <div>
+    <a-page-header
+            title="教师管理"
+    />
     <stus-data-table
             :data-col-titles="dataTabCols"
             :fetch-from-server="fetchFromServer"

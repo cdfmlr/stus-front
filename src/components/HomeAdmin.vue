@@ -62,7 +62,6 @@
               <admin-course-teacher-manage/>
             </div>
             <div v-else-if="navSelected[0]==='studentCourseManage'">
-              <p>studentCourseManage</p>
               <admin-student-course-manage/>
             </div>
           </div>

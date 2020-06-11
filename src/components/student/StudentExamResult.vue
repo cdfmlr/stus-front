@@ -1,5 +1,16 @@
 <template>
   <div>
+    <a-page-header
+            title="我的成绩"
+    >
+      <template slot="extra">
+        <a-button icon="reload"
+                  @click="fetchData">
+          刷新
+        </a-button>
+      </template>
+    </a-page-header>
+
     <a-table :data-source="data" :columns="columns" style="margin-top: 16px">
       <div
               slot="filterDropdown"
@@ -55,10 +66,7 @@
       </template>
     </a-table>
 
-    <a-button icon="reload"
-              @click="fetchData">
-      刷新
-    </a-button>
+
 
   </div>
 </template>

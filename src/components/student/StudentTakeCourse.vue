@@ -1,5 +1,9 @@
 <template>
   <div>
+    <a-page-header
+            title="学生选课"
+    />
+
     <h3>课程列表</h3>
     <all-courses/>
     <a-card title="已选课程" hoverable>
@@ -11,6 +15,7 @@
 <script>
     import AllCourses from "./AllCourses";
     import EnrolledCourses from "./EnrolledCourses";
+
     export default {
         name: "StudentTakeCourse",
         components: {EnrolledCourses, AllCourses},

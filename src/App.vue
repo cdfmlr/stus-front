@@ -3,6 +3,7 @@
     <login v-if="!logined"/>
     <home-admin v-if="logined && (utype==='admin')"/>
     <home-student v-if="logined && (utype==='student')"/>
+    <home-teacher v-if="logined && (utype==='teacher')"/>
   </div>
 </template>
 
@@ -12,10 +13,12 @@
     import HomeAdmin from "./components/HomeAdmin";
     import {getCookie} from './util/cookieUtil';
     import HomeStudent from "./components/HomeStudent";
+    import HomeTeacher from "./components/HomeTeacher";
 
     export default {
         name: 'App',
         components: {
+            HomeTeacher,
             HomeStudent,
             HomeAdmin,
             Login

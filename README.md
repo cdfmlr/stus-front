@@ -1,5 +1,7 @@
 # stus-front
 
+Front-End of [suts](https://github.com/cdfmlr/stus).
+
 ## Project setup
 ```
 npm install

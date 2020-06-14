@@ -1,28 +1,65 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <login v-if="!logined"/>
+    <home-admin v-if="logined && (utype==='admin')"/>
+    <home-student v-if="logined && (utype==='student')"/>
+    <home-teacher v-if="logined && (utype==='teacher')"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+    import Login from './components/Login.vue'
+    import {getToken} from "./main";
+    import HomeAdmin from "./components/HomeAdmin";
+    import {getCookie} from './util/cookieUtil';
+    import HomeStudent from "./components/HomeStudent";
+    import HomeTeacher from "./components/HomeTeacher";
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+    export default {
+        name: 'App',
+        components: {
+            HomeTeacher,
+            HomeStudent,
+            HomeAdmin,
+            Login
+        },
+        data: function () {
+            return {
+                firstIn: true,
+                logined: false,
+                utype: null,
+                timer: null
+            }
+        },
+        methods: {
+            checkLogin() {
+                let token = getToken();
+                // console.log("token: " + token);
+                this.logined = !!token;
+                this.utype = getCookie("utype");
+                if (!this.logined && this.firstIn) {
+                    this.$message.warn("请登录");
+                    this.firstIn = false;
+                }
+            }
+        },
+        mounted() {
+            this.timer = setInterval(this.checkLogin, 1000);
+        },
+        beforeDestroy() {
+            clearInterval(this.timer);
+        }
+
+    }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  #app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    /*margin-top: 60px;*/
+  }
 </style>
